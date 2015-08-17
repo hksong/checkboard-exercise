@@ -7,14 +7,26 @@
 window.onload = start;
 var numOfRows = 9;
 var numOfCols = 9;
+var color0 = randColorA(0.8);
+var color1 = randColorA(0.1);
+var divContainer = document.createElement("div");
+divContainer.style.width = "100%";
+divContainer.style.paddingBottom = "100%";
+divContainer.style.zIndex = "1";
+divContainer.style.position = "absolute";
+divContainer.style.background = `linear-gradient(to bottom, ${color0}, ${color1})`;
+divContainer.classList.add("gradient");
+document.querySelector("body").appendChild(divContainer);
 var divs = [];
 var divRows = [];
+
+
 
 function start() {
 	createNewRowsDiv(numOfRows);
 	createNewDivs(numOfRows, numOfCols, "even", "odd");
 	placeDivs(numOfRows, numOfCols);
-	styleDivs("even", "odd", "black", "red");
+	styleDivs("even", "odd", randColor(), randColor());
 }
 
 // creates a matrix of divs with alternating cls0/cls1 classes
@@ -42,10 +54,9 @@ function createNewRowsDiv(rows) {
 }
 
 function placeDivs(rows, cols) {
-	var body = document.querySelector("body");
 	for (var i = 0; i < rows; i++) {
 		var row = divRows[i];
-		body.appendChild(row);
+		document.querySelector("body").appendChild(row);
 		for (var j = 0; j < cols; j++) {
 			row.appendChild(divs[i][j]);
 		}
@@ -57,10 +68,10 @@ function styleDivs(cls0, cls1, clr0, clr1) {
 	var odds = document.getElementsByClassName(cls1);
 	var upper = odds.length;
 
-	styleDiv(evens[0], randColor());
+	styleDiv(evens[0], clr0);
 	for (var i = 0; i < upper; i++) {
-		styleDiv(evens[i+1], randColor());
-		styleDiv(odds[i], randColor());
+		styleDiv(evens[i+1], clr0);
+		styleDiv(odds[i], clr1);
 	}
 
 }
@@ -70,6 +81,7 @@ function styleDiv(div, color) {
 	div.style.width = "11.1%";
 	div.style.paddingBottom = "11.1%";
 	div.style.backgroundColor = color;
+	//div.style.zIndex = "-1";
 }
 
 function randColor() {
@@ -78,4 +90,12 @@ function randColor() {
 	g = Math.floor(Math.random()*256);
 	b = Math.floor(Math.random()*256);
 	return `rgb(${r},${g},${b})`;
+}
+
+function randColorA(opacity) {
+	var r, g, b;
+	r = Math.floor(Math.random()*256);
+	g = Math.floor(Math.random()*256);
+	b = Math.floor(Math.random()*256);
+	return `rgba(${r},${g},${b}, ${opacity})`;
 }
