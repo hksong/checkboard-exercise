@@ -11,17 +11,18 @@ var divs = [];
 var divRows = [];
 
 function start() {
-	createNewRowsDiv(numOfRows);
-	createNewDivs(numOfRows, numOfCols, "even", "odd");
-	placeDivs(numOfRows, numOfCols);
+	createNewRowsDiv();
+	createNewDivs("even", "odd");
+	placeDivs();
 	styleDivs("even", "odd", "black", "red");
+	var timeID = flashDivs(2000);
 }
 
 // creates a matrix of divs with alternating cls0/cls1 classes
-function createNewDivs(rows, cols, cls0, cls1) {
-	for (var i = 0; i < rows; i++) {
+function createNewDivs(cls0, cls1) {
+	for (var i = 0; i < numOfRows; i++) {
 		var row = [];
-		for (var j = 0; j < cols; j++) {
+		for (var j = 0; j < numOfCols; j++) {
 			row.push(document.createElement("div"));
 			if ((i+j) % 2 === 0) {
 				row[j].classList.add(cls0);
@@ -34,19 +35,19 @@ function createNewDivs(rows, cols, cls0, cls1) {
 	}
 }
 
-function createNewRowsDiv(rows) {
-	for (var i = 0; i < rows; i++) {
+function createNewRowsDiv() {
+	for (var i = 0; i < numOfRows; i++) {
 		divRows.push(document.createElement("div"));
 		divRows[i].classList.add("rows");
 	}
 }
 
-function placeDivs(rows, cols) {
+function placeDivs() {
 	var body = document.querySelector("body");
-	for (var i = 0; i < rows; i++) {
+	for (var i = 0; i < numOfRows; i++) {
 		var row = divRows[i];
 		body.appendChild(row);
-		for (var j = 0; j < cols; j++) {
+		for (var j = 0; j < numOfCols; j++) {
 			row.appendChild(divs[i][j]);
 		}
 	}
@@ -62,7 +63,6 @@ function styleDivs(cls0, cls1, clr0, clr1) {
 		styleDiv(evens[i+1], randColor());
 		styleDiv(odds[i], randColor());
 	}
-
 }
 
 function styleDiv(div, color) {
@@ -78,4 +78,14 @@ function randColor() {
 	g = Math.floor(Math.random()*256);
 	b = Math.floor(Math.random()*256);
 	return `rgb(${r},${g},${b})`;
+}
+
+function flashDivs(delay) {
+	return setInterval(function() {
+		for (var i = 0; i < numOfRows; i++) {
+			for (var j = 0; j < numOfCols; j++) {
+				divs[i][j].style.backgroundColor = randColor();
+			}
+		}
+	},delay);
 }
