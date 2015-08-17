@@ -16,6 +16,10 @@ function start() {
 	placeDivs();
 	styleDivs("even", "odd", "black", "red");
 	var timeID = flashDivs(2000);
+	var audio = document.createElement("audio");
+	audio.src = "http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg";
+	audio.autoplay = true;
+	document.body.appendChild(audio);
 }
 
 // creates a matrix of divs with alternating cls0/cls1 classes
