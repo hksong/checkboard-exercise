@@ -57,10 +57,10 @@ function styleDivs(cls0, cls1, clr0, clr1) {
 	var odds = document.getElementsByClassName(cls1);
 	var upper = odds.length;
 
-	styleDiv(evens[0], clr0);
+	styleDiv(evens[0], randColor());
 	for (var i = 0; i < upper; i++) {
-		styleDiv(evens[i+1], clr0);
-		styleDiv(odds[i], clr1);
+		styleDiv(evens[i+1], randColor());
+		styleDiv(odds[i], randColor());
 	}
 
 }
@@ -70,4 +70,12 @@ function styleDiv(div, color) {
 	div.style.width = "11.1%";
 	div.style.paddingBottom = "11.1%";
 	div.style.backgroundColor = color;
+}
+
+function randColor() {
+	var r, g, b;
+	r = Math.floor(Math.random()*256);
+	g = Math.floor(Math.random()*256);
+	b = Math.floor(Math.random()*256);
+	return `rgb(${r},${g},${b})`;
 }
