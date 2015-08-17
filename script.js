@@ -5,7 +5,7 @@
 // 7 rows x 9 columns
 
 window.onload = start;
-var numOfRows = 7;
+var numOfRows = 9;
 var numOfCols = 9;
 var divs = [];
 var divRows = [];
